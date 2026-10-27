@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PDF-ON — Fast, simple, private PDF tools</title>
+<meta name="description" content="PDF-ON: merge, split, compress, convert and edit PDFs. Fast, simple, privacy-first. Process locally when you want." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#ffffff; --surface:#f6f7f9; --surface-2:#eef0f3; --border:#e3e6ea; --border-input:#868e98; --text:#14171c; --muted:#5b6470; --accent:#2f5bea; --on-accent:#ffffff; --success:#1f7a4d; --radius:10px; --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.10); }
+  .dark { --bg:#0b0f1a; --surface:#121826; --surface-2:#1a2233; --border:#24304a; --border-input:#4b5a7a; --text:#e6ecf5; --muted:#9aa8c2; --accent:#5b8cff; --on-accent:#0b0f1a; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1120px;margin:0 auto;padding:0 20px}
+  header{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--border)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:700;font-size:20px;display:flex;align-items:center;gap:8px}
+  .logo-mark{width:32px;height:32px;border-radius:8px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800}
+  nav a{color:var(--muted);margin-left:20px;font-size:14px}
+  nav a:hover{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:var(--radius);font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:14px}
+  .btn-primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+  .btn-lg{padding:14px 24px;font-size:16px}
+  .hero{text-align:center;padding:80px 0 60px}
+  .badge{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--surface-2);font-size:12px;color:var(--muted);margin-bottom:20px}
+  h1{font-size:clamp(36px,6vw,64px);font-weight:700;letter-spacing:-0.02em;margin-bottom:16px}
+  .grad{background:linear-gradient(135deg,#818cf8,#c084fc,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{max-width:640px;margin:0 auto 32px;color:var(--muted);font-size:18px}
+  .hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .section{padding:72px 0}
+  .section h2{font-size:32px;font-weight:700;text-align:center;margin-bottom:12px}
+  .section .sub{color:var(--muted);text-align:center;margin-bottom:40px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+  .card h3{font-size:16px;font-weight:600;margin-bottom:6px}
+  .card p{font-size:14px;color:var(--muted)}
+  .icon{width:36px;height:36px;border-radius:8px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:18px}
+  .pricing{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));max-width:900px;margin:0 auto}
+  .price-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:center}
+  .price-card.featured{border-color:var(--accent);box-shadow:0 8px 32px rgba(47,91,234,.15)}
+  .price{font-size:40px;font-weight:700;margin:12px 0}
+  .price span{font-size:16px;color:var(--muted);font-weight:400}
+  .price-card ul{list-style:none;text-align:left;margin:20px 0;font-size:14px;color:var(--muted)}
+  .price-card ul li{padding:6px 0;border-bottom:1px solid var(--border)}
+  .price-card ul li:last-child{border:none}
+  .check::before{content:"check ";color:var(--success);font-weight:700}
+  footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--muted);font-size:14px}
+  footer a{margin:0 12px}
+  .theme-toggle{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--text);font-size:13px}
+  @media(max-width:640px){.hero{padding:48px 0 40px} nav a{margin-left:12px;font-size:13px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="logo"><div class="logo-mark">P</div> PDF-ON</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="/tools.html">Tools</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/privacy.html">Privacy</a>
+      <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">moon</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="badge">Privacy-first PDF tools</span>
+    <h1>Every tool you need for PDFs, <span class="grad">without uploading your files</span></h1>
+    <p>PDF-ON merges, splits, compresses, converts and edits PDFs. Process locally in your browser when you want - your passports and contracts never leave your device.</p>
+    <div class="hero-cta">
+      <a href="/tools.html" class="btn btn-primary btn-lg">Start for free</a>
+      <a href="#features" class="btn btn-lg">See features</a>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="section">
+  <div class="container">
+    <h2>Why PDF-ON</h2>
+    <p class="sub">Built to fix what users hate about the usual tools.</p>
+    <div class="grid">
+      <div class="card"><div class="icon">lock</div><h3>Privacy-first</h3><p>Process sensitive PDFs locally. No uploads, no retention, no data selling.</p></div>
+      <div class="card"><div class="icon">bolt</div><h3>Fast and simple</h3><p>Clean UI, labelled tools, sensible defaults. No guessing what a button does.</p></div>
+      <div class="card"><div class="icon">offline</div><h3>Works offline</h3><p>Core tools run as a PWA. No spinner, no connection lost.</p></div>
+      <div class="card"><div class="icon">card</div><h3>Fair pricing</h3><p>Generous free tier plus pay-per-use. No subscription lock-in, no surprise renewals.</p></div>
+      <div class="card"><div class="icon">moon</div><h3>Dark mode</h3><p>Polished dark theme for comfortable reading.</p></div>
+      <div class="card"><div class="icon">a11y</div><h3>Accessible</h3><p>Keyboard-friendly, screen-reader labels, WCAG AA contrast.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="tools" class="section" style="background:var(--surface)">
+  <div class="container">
+    <h2>All the tools</h2>
+    <p class="sub">30+ tools for every PDF job.</p>
+    <div class="grid">
+      <div class="card"><h3>Merge PDF</h3><p>Combine PDFs in the order you want.</p></div>
+      <div class="card"><h3>Split PDF</h3><p>Separate pages into independent files.</p></div>
+      <div class="card"><h3>Compress PDF</h3><p>Reduce file size while keeping quality.</p></div>
+      <div class="card"><h3>PDF to Word</h3><p>Convert to editable DOCX.</p></div>
+      <div class="card"><h3>Word to PDF</h3><p>Make DOCX easy to read as PDF.</p></div>
+      <div class="card"><h3>Rotate PDF</h3><p>Rotate pages as you need.</p></div>
+      <div class="card"><h3>Protect PDF</h3><p>Encrypt with a password.</p></div>
+      <div class="card"><h3>Unlock PDF</h3><p>Remove password security.</p></div>
+      <div class="card"><h3>OCR PDF</h3><p>Make scanned PDFs searchable.</p></div>
+      <div class="card"><h3>Edit PDF</h3><p>Add text, images, shapes.</p></div>
+      <div class="card"><h3>Sign PDF</h3><p>Sign yourself or request signatures.</p></div>
+      <div class="card"><h3>PDF Forms</h3><p>Create and fill interactive forms.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:24px">
+      <a href="/tools.html" class="btn btn-primary">See all 30+ tools -&gt;</a>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="section">
+  <div class="container">
+    <h2>Simple pricing</h2>
+    <p class="sub">Start free. Upgrade when you need more.</p>
+    <div class="pricing">
+      <div class="price-card">
+        <h3>Free</h3>
+        <div class="price">$0<span>/mo</span></div>
+        <ul>
+          <li class="check">Core tools</li>
+          <li class="check">Limited processing</li>
+          <li class="check">Local processing</li>
+        </ul>
+        <a href="/tools.html" class="btn" style="width:100%;justify-content:center">Start free</a>
+      </div>
+      <div class="price-card featured">
+        <h3>Premium</h3>
+        <div class="price">$4<span>/mo</span></div>
+        <ul>
+          <li class="check">All tools</li>
+          <li class="check">Unlimited processing</li>
+          <li class="check">Web + desktop + mobile</li>
+          <li class="check">Digital signatures</li>
+          <li class="check">Workflows</li>
+          <li class="check">Ad-free</li>
+        </ul>
+        <a href="/tools.html" class="btn btn-primary" style="width:100%;justify-content:center">Get Premium</a>
+      </div>
+      <div class="price-card">
+        <h3>Business</h3>
+        <div class="price">Let's talk</div>
+        <ul>
+          <li class="check">All Premium features</li>
+          <li class="check">SSO</li>
+          <li class="check">Dedicated support</li>
+          <li class="check">Volume discounts</li>
+        </ul>
+        <a href="/tools.html" class="btn" style="width:100%;justify-content:center">Contact sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>2026 PDF-ON</div>
+    <div style="margin-top:8px">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('themeBtn');
+  const root = document.documentElement;
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) {
+    root.classList.add('dark'); btn.textContent = 'sun';
+  }
+  btn.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    const dark = root.classList.contains('dark');
+    btn.textContent = dark ? 'sun' : 'moon';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+</script>
+</body>
+</html>
